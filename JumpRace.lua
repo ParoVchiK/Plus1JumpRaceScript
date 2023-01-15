@@ -61,11 +61,6 @@ end
      end)
 end
 
-upgrades_window:Button("Upgrade All One Time",function()
-    for _, upgr in pairs(possible_upgrades) do
-        UpgradeFunc(upgr)
-    end
- end)
 --Functions--
 
 function Egg(egg_type, need_studs, egg_id)
