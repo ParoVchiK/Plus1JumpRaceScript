@@ -13,7 +13,7 @@ local player_location = nil
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/dirt",true))()
 local Table = {}
 local eggs_window = Lib:CreateWindow("Main functions")
-local location_window = Lib:CreateWindow("TP (autojump after)")
+local location_window = Lib:CreateWindow("TP")
 local upgrades_window = Lib:CreateWindow("Upgrades")
 
 --Main Functions(Menu)--
