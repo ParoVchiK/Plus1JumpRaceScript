@@ -23,7 +23,6 @@ eggs_window:Dropdown("Dropdown",{location = Table,flag = "Dropdown", list = {"No
         active_eggs[_] = false
     end
    if Table["Dropdown"] == "None" then
-    print("None")
    else
     for _,v in pairs(egg_types) do
         if v == Table["Dropdown"] then
@@ -64,13 +63,17 @@ end
 --Functions--
 
 function Egg(egg_type, need_studs, egg_id)
+    player_studs = game.Players.LocalPlayer.extrastats.Studs.Value
+    if player_studs >= need_studs then
+        local Event = game:GetService("ReplicatedStorage").Events.HatchPet
+        Event:FireServer(egg_type, 1) 
+    else
+        print("Not Enough Studs")
+    end
     while wait(4) do
         if not active_eggs[egg_id] then
-            print("break")
             break
         else
-            print(egg_id)
-            print(active_eggs[egg_id])
             player_studs = game.Players.LocalPlayer.extrastats.Studs.Value
             if player_studs >= need_studs then
                 local Event = game:GetService("ReplicatedStorage").Events.HatchPet
@@ -83,6 +86,8 @@ function Egg(egg_type, need_studs, egg_id)
 end
 
 function AutoBestPets()
+    local Event = game:GetService("ReplicatedStorage").Events.EquipBestPets
+    Event:InvokeServer()
     while wait(10) do
         if not is_active_auto_pets then
             break
@@ -94,6 +99,13 @@ function AutoBestPets()
 end
 
 function AutoRebirth()
+    player_studs = game.Players.LocalPlayer.extrastats.Studs.Value
+    if player_studs >= ((player_rebirths * 10000000) + 10000000) then
+        local Event = game:GetService("ReplicatedStorage").Events.Rebirth
+        Event:FireServer()
+    else
+        print("Not Enough Studs")
+    end
     while wait(10) do
         if not is_active_auto_rebirth then
             break
