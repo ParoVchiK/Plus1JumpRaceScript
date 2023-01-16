@@ -1,7 +1,10 @@
-local active_eggs = {false, false, false, false, false, false}
+local active_eggs = {}
 local is_active_auto_pets = false
 local is_active_auto_rebirth = false
 local egg_types = {"None","Starter Egg", "Striped Egg", "Royal Egg", "Space Egg", "Shadow Egg", "Coral Egg", "Atlantis Egg", "Heaven Egg", "Rainbow Egg", "Hell Egg", "Magma Egg"}
+for i=1, #(egg_types) do
+    active_eggs[i] = false
+end
 local possible_upgrades = {"Walk Faster", "Pet Storage", "More Studs", "More Jump", "More Gems", "Better Chest Rewards", "Keep Jump On Rebirth", "Pet Storage II", "More Gems II", "Walk Faster II", "Pet Luck II", "More Gems III", "Better Chest Rewards II", "Keep Jump On Rebirth II"}
 local worlds = {"Main", "Space", "Underwater", "Heaven", "Underworld"}
 local worlds_position = {game:GetService("Workspace").Earth.Ground.CFrame.Position, game:GetService("Workspace").Space.Ground.CFrame.Position, game:GetService("Workspace").Underwater.Ground.CFrame.Position, game:GetService("Workspace").Heaven.Ground.CFrame.Position, game:GetService("Workspace").Underworld.Ground.CFrame.Position}
