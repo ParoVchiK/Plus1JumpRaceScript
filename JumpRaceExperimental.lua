@@ -64,7 +64,6 @@ possible_worlds[#(possible_worlds)+1]=possible_worlds[2] --Swapping Space and Un
 possible_worlds[2] = possible_worlds[3]
 possible_worlds[3] = possible_worlds[#possible_worlds]
 table.remove(possible_worlds)
-
 --local worlds = {"Main", "Space", "Underwater", "Heaven", "Underworld"}
 --local worlds_position = {game:GetService("Workspace").Earth.Ground.CFrame.Position, game:GetService("Workspace").Space.Ground.CFrame.Position, game:GetService("Workspace").Underwater.Ground.CFrame.Position, game:GetService("Workspace").Heaven.Ground.CFrame.Position, game:GetService("Workspace").Underworld.Ground.CFrame.Position}
 
@@ -72,6 +71,11 @@ table.remove(possible_worlds)
 
 local is_active_auto_pets = false
 local is_active_auto_rebirth = false
+local studs_to_rebirth = game.Players.LocalPlayer.PlayerGui.Rebirth.Rebirth.Info.ExpBar.TextLabel.Text
+local firstRebID = studs_to_rebirth:find("/")+2
+local secRebID = studs_to_rebirth:find("S")-2
+studs_to_rebirth = studs_to_rebirth:sub(firstRebID,secRebID)
+local int_to_rebirth = tonumber(SymbToNum(studs_to_rebirth))
 
 --Getting Possible Upgrades--
 
@@ -163,7 +167,7 @@ function Egg(egg_type, need_studs, egg_id)
                 local Event = game:GetService("ReplicatedStorage").Events.HatchPet
                 Event:FireServer(egg_type, 1) 
             else
-                print("Not Enough Studs")
+                print("Not Enough Studs For Egg", player_studs,"/", need_studs)
             end
         end
      end
@@ -183,6 +187,11 @@ function AutoBestPets()
 end
 
 function AutoRebirth()
+    studs_to_rebirth = game.Players.LocalPlayer.PlayerGui.Rebirth.Rebirth.Info.ExpBar.TextLabel.Text
+    firstRebID = studs_to_rebirth:find("/")+2
+    secRebID = studs_to_rebirth:find("S")-2
+    studs_to_rebirth = studs_to_rebirth:sub(firstRebID,secRebID)
+    int_to_rebirth = tonumber(SymbToNum(studs_to_rebirth))
     player_studs = game.Players.LocalPlayer.extrastats.Studs.Value
     if player_studs >= ((player_rebirths * 10000000) + 10000000) then
         local Event = game:GetService("ReplicatedStorage").Events.Rebirth
@@ -194,12 +203,16 @@ function AutoRebirth()
         if not is_active_auto_rebirth then
             break
         else
-            player_studs = game.Players.LocalPlayer.extrastats.Studs.Value
-            if player_studs >= ((player_rebirths * 10000000) + 10000000) then
+            studs_to_rebirth = game.Players.LocalPlayer.PlayerGui.Rebirth.Rebirth.Info.ExpBar.TextLabel.Text
+            firstRebID = studs_to_rebirth:find("/")+2
+            secRebID = studs_to_rebirth:find("S")-2
+            studs_to_rebirth = studs_to_rebirth:sub(firstRebID,secRebID)
+            int_to_rebirth = tonumber(SymbToNum(studs_to_rebirth))
+            if player_studs >= int_to_rebirth then
                 local Event = game:GetService("ReplicatedStorage").Events.Rebirth
                 Event:FireServer()
             else
-                print("Not Enough Studs")
+                print("Not Enough Studs For Rebirth", player_studs,"/", int_to_rebirth)
             end
         end
     end
